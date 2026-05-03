@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GOV.UK 案例分析：UX 設計的五個層次</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f3f2f1;
+            color: #0b0c0c;
+        }
+
+        .gov-blue { background-color: #005ea5; }
+        .gov-black { background-color: #0b0c0c; }
+        .gov-green { background-color: #00703c; }
+        
+        .layer-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-left: 8px solid transparent;
+        }
+        
+        .layer-card:hover {
+            transform: translateX(10px);
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .active-layer {
+            background-color: #ffffff;
+            border-left: 8px solid #005ea5;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .stack-item {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 頂部導航欄 (模仿 GOV.UK) -->
+    <header class="gov-black text-white py-3 px-6 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl font-bold tracking-tighter">GOV.UK</span>
+                <span class="border-l border-gray-600 pl-3 ml-2 text-sm hidden sm:inline">UX 設計五要素深度分析</span>
+            </div>
+            <div class="text-sm font-medium hover:underline cursor-pointer">
+                <i class="fa-solid fa-book-open mr-1"></i> 基於 5EUX 模型
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto p-6 md:p-12">
+        
+        <!-- 英雄區塊 -->
+        <section class="mb-16">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-6">Jesse James Garrett 的 UX 五要素</h1>
+            <p class="text-xl text-gray-700 leading-relaxed max-w-3xl mb-8">
+                本網頁將 Jesse James Garrett 於 2000 年提出的《使用者經驗的要素》經典理論，應用於當代網頁設計典範 —— <strong>GOV.UK</strong>。
+                探討如何透過由內而外的五個層次，將複雜的政府服務轉化為極簡的數位體驗。
+            </p>
+            <div class="flex flex-wrap gap-4">
+                <span class="bg-gray-200 px-3 py-1 rounded text-sm font-bold">#UXDesign</span>
+                <span class="bg-gray-200 px-3 py-1 rounded text-sm font-bold">#GOVUK</span>
+                <span class="bg-gray-200 px-3 py-1 rounded text-sm font-bold">#DesignSystem</span>
+            </div>
+        </section>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            
+            <!-- 左側：視覺化堆疊與選擇器 -->
+            <div class="lg:col-span-5 space-y-4">
+                <h2 class="text-2xl font-bold mb-6 flex items-center">
+                    <i class="fa-solid fa-layer-group mr-3 text-blue-600"></i> 層級架構 (The Stack)
+                </h2>
+                
+                <div id="layer-5" class="layer-card p-5 rounded active-layer" onclick="showLayer(5)">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-bold text-gray-500 uppercase">第 5 層：具體 Concrete</span>
+                        <i class="fa-solid fa-eye text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">表現層 (Surface)</h3>
+                    <p class="text-sm text-gray-600">最終視覺呈現與感官體驗</p>
+                </div>
+
+                <div id="layer-4" class="layer-card p-5 rounded" onclick="showLayer(4)">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-bold text-gray-500 uppercase">第 4 層</span>
+                        <i class="fa-solid fa-border-all text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">框架層 (Skeleton)</h3>
+                    <p class="text-sm text-gray-600">介面佈局、導覽設計、資訊設計</p>
+                </div>
+
+                <div id="layer-3" class="layer-card p-5 rounded" onclick="showLayer(3)">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-bold text-gray-500 uppercase">第 3 層</span>
+                        <i class="fa-solid fa-sitemap text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">結構層 (Structure)</h3>
+                    <p class="text-sm text-gray-600">互動設計與資訊架構</p>
+                </div>
+
+                <div id="layer-2" class="layer-card p-5 rounded" onclick="showLayer(2)">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-bold text-gray-500 uppercase">第 2 層</span>
+                        <i class="fa-solid fa-list-check text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">範圍層 (Scope)</h3>
+                    <p class="text-sm text-gray-600">功能規格與內容需求</p>
+                </div>
+
+                <div id="layer-1" class="layer-card p-5 rounded" onclick="showLayer(1)">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-bold text-gray-500 uppercase">第 1 層：抽象 Abstract</span>
+                        <i class="fa-solid fa-bullseye text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">策略層 (Strategy)</h3>
+                    <p class="text-sm text-gray-600">使用者需求與組織目標</p>
+                </div>
+
+                <!-- PDF 圖解重現 (SVG) -->
+                <div class="mt-12 p-6 bg-white rounded-xl shadow-sm border border-gray-200">
+                    <h4 class="font-bold mb-4 text-gray-500"><i class="fa-solid fa-image mr-2"></i> PDF 核心概念圖解</h4>
+                    <svg viewBox="0 0 400 300" class="w-full h-auto">
+                        <!-- 雙重性底座 -->
+                        <rect x="50" y="220" width="300" height="40" fill="#e5e7eb" rx="5" />
+                        <text x="200" y="245" text-anchor="middle" font-size="12" font-weight="bold">WEB 的雙重本質</text>
+                        
+                        <!-- 兩個維度 -->
+                        <path d="M100,220 L100,50" stroke="#9ca3af" stroke-width="2" stroke-dasharray="4" />
+                        <path d="M300,220 L300,50" stroke="#9ca3af" stroke-width="2" stroke-dasharray="4" />
+                        <text x="100" y="40" text-anchor="middle" font-size="10">軟體介面</text>
+                        <text x="300" y="40" text-anchor="middle" font-size="10">資訊空間</text>
+                        
+                        <!-- 層級方塊 -->
+                        <rect x="120" y="60" width="160" height="25" fill="#005ea5" fill-opacity="0.9" rx="3" />
+                        <rect x="120" y="90" width="160" height="25" fill="#005ea5" fill-opacity="0.7" rx="3" />
+                        <rect x="120" y="120" width="160" height="25" fill="#005ea5" fill-opacity="0.5" rx="3" />
+                        <rect x="120" y="150" width="160" height="25" fill="#005ea5" fill-opacity="0.3" rx="3" />
+                        <rect x="120" y="180" width="160" height="25" fill="#005ea5" fill-opacity="0.1" rx="3" />
+                    </svg>
+                    <p class="text-xs text-gray-400 mt-2 text-center">Jesse James Garrett, 2000</p>
+                </div>
+            </div>
+
+            <!-- 右側：GOV.UK 內容解析 -->
+            <div class="lg:col-span-7 bg-white p-8 md:p-10 rounded-2xl shadow-lg min-h-[600px]">
+                
+                <!-- 內容 5: 表現層 -->
+                <div id="content-5" class="content-section" style="display: block;">
+                    <div class="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-bold mb-4">SURFACE</div>
+                    <h2 class="text-3xl font-bold mb-6">表現層：視覺設計的極致節制</h2>
+                    <div class="prose prose-blue max-w-none">
+                        <p class="text-gray-600 mb-6 italic">「使用者最直觀感受到的視覺外觀，重點在於感官傳達。」</p>
+                        
+                        <div class="bg-gray-50 border-l-4 border-black p-4 mb-6">
+                            <h4 class="font-bold mb-2">GOV.UK 的實踐：</h4>
+                            <ul class="list-disc ml-5 space-y-2">
+                                <li><strong>字體：</strong> 選用 <em>New Transport</em>，專為螢幕閱讀與快速識別設計。</li>
+                                <li><strong>配色：</strong> 高對比的黑、白、藍色調，通過嚴格的無障礙（Accessibility）測試。</li>
+                                <li><strong>視覺噪音：</strong> 移除所有漸層、陰影或不必要的裝飾，專注於資訊內容。</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="h-20 gov-black rounded flex items-center justify-center text-white text-xs font-bold">#0B0C0C</div>
+                            <div class="h-20 gov-blue rounded flex items-center justify-center text-white text-xs font-bold">#005EA5</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 內容 4: 框架層 -->
+                <div id="content-4" class="content-section">
+                    <div class="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-bold mb-4">SKELETON</div>
+                    <h2 class="text-3xl font-bold mb-6">框架層：標準化的介面元件</h2>
+                    <div class="prose prose-blue max-w-none">
+                        <p class="text-gray-600 mb-6 italic">「將結構具體化為頁面配置與導航設計。」</p>
+                        
+                        <div class="bg-gray-50 border-l-4 border-black p-4 mb-6">
+                            <h4 class="font-bold mb-2">GOV.UK 的實踐：</h4>
+                            <ul class="list-disc ml-5 space-y-2">
+                                <li><strong>GDS 設計系統：</strong> 提供標準化的按鈕、輸入框與導覽模式。</li>
+                                <li><strong>Start Now：</strong> 統一的綠色行動呼籲按鈕，標誌著服務的開始。</li>
+                                <li><strong>搜尋導向：</strong> 搜尋框在首頁佔據核心地位，減少使用者尋找的路徑。</li>
+                            </ul>
+                        </div>
+                        <div class="bg-green-600 text-white p-4 text-center font-bold rounded cursor-default inline-block px-8">
+                            Start now <i class="fa-solid fa-chevron-right ml-2"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 內容 3: 結構層 -->
+                <div id="content-3" class="content-section">
+                    <div class="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-bold mb-4">STRUCTURE</div>
+                    <h2 class="text-3xl font-bold mb-6">結構層：打破部門的藩籬</h2>
+                    <div class="prose prose-blue max-w-none">
+                        <p class="text-gray-600 mb-6 italic">「定義產品的邏輯架構，包含互動設計與資訊架構 (IA)。」</p>
+                        
+                        <div class="bg-gray-50 border-l-4 border-black p-4 mb-6">
+                            <h4 class="font-bold mb-2">GOV.UK 的實踐：</h4>
+                            <ul class="list-disc ml-5 space-y-2">
+                                <li><strong>生活事件分類：</strong> 資訊不按「政府機關」分，而是按「工作、開車、家庭」分。</li>
+                                <li><strong>任務流 (Task Flow)：</strong> 每個線上申請流程都經過嚴格測試，減少跳轉步驟。</li>
+                                <li><strong>關聯導航：</strong> 在頁面右側提供相關的建議服務，形成網狀的資訊空間。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 內容 2: 範圍層 -->
+                <div id="content-2" class="content-section">
+                    <div class="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-bold mb-4">SCOPE</div>
+                    <h2 class="text-3xl font-bold mb-6">範圍層：專注於核心內容</h2>
+                    <div class="prose prose-blue max-w-none">
+                        <p class="text-gray-600 mb-6 italic">「決定要提供哪些『功能規格』與『內容需求』。」</p>
+                        
+                        <div class="bg-gray-50 border-l-4 border-black p-4 mb-6">
+                            <h4 class="font-bold mb-2">GOV.UK 的實踐：</h4>
+                            <ul class="list-disc ml-5 space-y-2">
+                                <li><strong>內容設計 (Content Design)：</strong> 將複雜的法條轉化為任何人都能讀懂的行動指南。</li>
+                                <li><strong>功能排除：</strong> 剔除與「完成任務」無關的裝飾性功能。</li>
+                                <li><strong>規格一致：</strong> 確保所有的申請表單功能邏輯高度統一。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 內容 1: 策略層 -->
+                <div id="content-1" class="content-section">
+                    <div class="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-bold mb-4">STRATEGY</div>
+                    <h2 class="text-3xl font-bold mb-6">策略層：數位原創 (Digital by Default)</h2>
+                    <div class="prose prose-blue max-w-none">
+                        <p class="text-gray-600 mb-6 italic">「產品最底層的『地基』，重點在於平衡組織目標與使用者需求。」</p>
+                        
+                        <div class="bg-gray-50 border-l-4 border-black p-4 mb-6">
+                            <h4 class="font-bold mb-2">GOV.UK 的實踐：</h4>
+                            <ul class="list-disc ml-5 space-y-2">
+                                <li><strong>用戶需求：</strong> 幫助公民「快速完成任務並離開」。</li>
+                                <li><strong>組織目標：</strong> 降低紙本與人力的維運成本。</li>
+                                <li><strong>品牌核心：</strong> 建立公信力與高效政府的形象。</li>
+                            </ul>
+                        </div>
+                        <p class="text-sm font-bold text-red-600">※ 核心警語：正如 Garrett 所說，底層策略的模糊，是上層視覺再美也無法彌補的。</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- 底部資訊 -->
+    <footer class="bg-gray-200 mt-20 py-12 px-6 border-t border-gray-300">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-sm text-gray-600">
+                <p class="font-bold mb-2">致敬 Jesse James Garrett</p>
+                <p>© 2000-2024 使用者經驗要素分析報告</p>
+            </div>
+            <div class="flex gap-6">
+                <a href="#" class="text-gray-600 hover:text-black"><i class="fa-brands fa-github text-2xl"></i></a>
+                <a href="#" class="text-gray-600 hover:text-black"><i class="fa-solid fa-envelope text-2xl"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function showLayer(layerNumber) {
+            // 隱藏所有內容
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // 移除所有卡片的 active 樣式
+            document.querySelectorAll('.layer-card').forEach(card => {
+                card.classList.remove('active-layer');
+            });
+            
+            // 顯示選擇的內容與卡片樣式
+            document.getElementById('content-' + layerNumber).style.display = 'block';
+            document.getElementById('layer-' + layerNumber).classList.add('active-layer');
+        }
+    </script>
+</body>
+</html>
